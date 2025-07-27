@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Vehicle Health Dashboard</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <nav class="navbar">
+      <div class="nav-content">
+          <div class="logo">
+              🚗 AI Vehicle Monitor
+          </div>
+          <ul class="nav-links">
+              <li><a href="#dashboard">Dashboard</a></li>
+              <li><a href="#diagnostics">Diagnostics</a></li>
+              <li><a href="#predictions">Predictions</a></li>
+              <li><a href="#maintenance">Maintenance</a></li>
+          </ul>
+      </div>
+  </nav>
+
+  <div class="container">
+      <div class="hero">
+          <h1>AI-Powered Vehicle Health Monitoring</h1>
+          <p>Real-time diagnostics, predictive maintenance, and intelligent insights for your fleet</p>
+      </div>
+
+      <div class="vehicle-selector">
+          <button class="vehicle-btn active" onclick="selectVehicle('truck1')">🚛 Truck #001</button>
+          <button class="vehicle-btn" onclick="selectVehicle('van1')">🚐 Van #024</button>
+          <button class="vehicle-btn" onclick="selectVehicle('car1')">🚗 Car #105</button>
+          <button class="vehicle-btn" onclick="selectVehicle('bus1')">🚌 Bus #007</button>
+      </div>
+
+      <div class="controls">
+          <button class="btn btn-primary" onclick="startDiagnostics()">Run Diagnostics</button>
+          <button class="btn btn-secondary" onclick="generateReport()">Generate Report</button>
+          <button class="btn btn-secondary" onclick="scheduleService()">Schedule Service</button>
+      </div>
+
+      <div class="alerts" id="alertsPanel">
+          <h2>🚨 Active Alerts</h2>
+          <div class="alert alert-warning">
+              <span>⚠️</span>
+              <div>
+                  <strong>Engine Temperature Rising</strong>
+                  <p>Vehicle #001 - Temperature at 95°C, approaching critical threshold</p>
+              </div>
+          </div>
+          <div class="alert alert-info">
+              <span>ℹ️</span>
+              <div>
+                  <strong>Scheduled Maintenance Due</strong>
+                  <p>Vehicle #024 - Oil change due in 500 miles</p>
+              </div>
+          </div>
+      </div>
+
+      <div class="dashboard" id="dashboard">
+          <div class="card">
+              <div class="card-header">
+                  <h3 class="card-title">Engine Health</h3>
+                  <div class="status-indicator status-good"></div>
+              </div>
+              <div class="metric">
+                  <span class="metric-label">Temperature</span>
+                  <span class="metric-value" id="engineTemp">87°C</span>
+              </div>
+              <div class="progress-bar">
+                  <div class="progress-fill" style="width: 70%"></div>
+              </div>
+              <div class="metric">
+                  <span class="metric-label">Oil Pressure</span>
+                  <span class="metric-value" id="oilPressure">45 PSI</span>
+              </div>
+              <div class="metric">
+                  <span class="metric-label">RPM</span>
+                  <span class="metric-value" id="rpm">2,450</span>
+              </div>
+              <div class="metric">
+                  <span class="metric-label">Health Score</span>
+                  <span class="metric-value" style="color: #10b981;">94%</span>
+              </div>
+          </div>
+
+          <div class="card">
+              <div class="card-header">
+                  <h3 class="card-title">Transmission</h3>
+                  <div class="status-indicator status-good"></div>
+              </div>
+              <div class="metric">
+                  <span class="metric-label">Fluid Temperature</span>
+                  <span class="metric-value" id="transTemp">68°C</span>
+              </div>
+              <div class="progress-bar">
+                  <div class="progress-fill" style="width: 85%"></div>
+              </div>
+              <div class="metric">
+                  <span class="metric-label">Pressure</span>
+                  <span class="metric-value">Normal</span>
+              </div>
+              <div class="metric">
+                  <span class="metric-label">Gear Efficiency</span>
+                  <span class="metric-value" style="color: #10b981;">97%</span>
+              </div>
+          </div>
+
+          <div class="card">
+              <div class="card-header">
+                  <h3 class="card-title">Brake System</h3>
+                  <div class="status-indicator status-warning"></div>
+              </div>
+              <div class="metric">
+                  <span class="metric-label">Pad Thickness</span>
+                  <span class="metric-value" style="color: #f59e0b;">6.2mm</span>
+              </div>
+              <div class="progress-bar">
+                  <div class="progress-fill" style="width: 40%; background: linear-gradient(90deg, #f59e0b, #fbbf24);"></div>
+              </div>
+              <div class="metric">
+                  <span class="metric-label">Fluid Level</span>
+                  <span class="metric-value">Good</span>
+              </div>
+              <div class="metric">
+                  <span class="metric-label">Response Time</span>
+                  <span class="metric-value">0.8s</span>
+              </div>
+          </div>
+
+          <div class="card">
+              <div class="card-header">
+                  <h3 class="card-title">Battery & Electrical</h3>
+                  <div class="status-indicator status-good"></div>
+              </div>
+              <div class="metric">
+                  <span class="metric-label">Voltage</span>
+                  <span class="metric-value" id="voltage">12.6V</span>
+              </div>
+              <div class="progress-bar">
+                  <div class="progress-fill" style="width: 90%"></div>
+              </div>
+              <div class="metric">
+                  <span class="metric-label">Charge Level</span>
+                  <span class="metric-value">89%</span>
+              </div>
+              <div class="metric">
+                  <span class="metric-label">Alternator</span>
+                  <span class="metric-value" style="color: #10b981;">Optimal</span>
+              </div>
+          </div>
+
+          <div class="card">
+              <div class="card-header">
+                  <h3 class="card-title">AI Predictions</h3>
+                  <div class="status-indicator status-info" style="background: #3b82f6;"></div>
+              </div>
+              <div class="prediction-chart">
+                  <div class="chart-placeholder">Predictive Analytics Visualization</div>
+              </div>
+              <div class="metric">
+                  <span class="metric-label">Next Service</span>
+                  <span class="metric-value">2,450 miles</span>
+              </div>
+              <div class="metric">
+                  <span class="metric-label">Failure Risk</span>
+                  <span class="metric-value" style="color: #10b981;">Low (8%)</span>
+              </div>
+          </div>
+
+          <div class="card">
+              <div class="card-header">
+                  <h3 class="card-title">Fuel Efficiency</h3>
+                  <div class="status-indicator status-good"></div>
+              </div>
+              <div class="metric">
+                  <span class="metric-label">Current MPG</span>
+                  <span class="metric-value" id="mpg">24.5</span>
+              </div>
+              <div class="progress-bar">
+                  <div class="progress-fill" style="width: 78%"></div>
+              </div>
+              <div class="metric">
+                  <span class="metric-label">Trend</span>
+                  <span class="metric-value" style="color: #10b981;">↗ +2.1%</span>
+              </div>
+              <div class="metric">
+                  <span class="metric-label">AI Optimization</span>
+                  <span class="metric-value">Active</span>
+              </div>
+          </div>
+      </div>
+
+      <div class="maintenance-schedule">
+          <h2>📅 Upcoming Maintenance Schedule</h2>
+          <div class="schedule-item">
+              <div>
+                  <strong>Oil Change & Filter</strong>
+                  <p>Vehicle #001</p>
+              </div>
+              <div class="schedule-date">Dec 15, 2024</div>
+          </div>
+          <div class="schedule-item">
+              <div>
+                  <strong>Brake Pad Replacement</strong>
+                  <p>Vehicle #001</p>
+              </div>
+              <div class="schedule-date">Dec 20, 2024</div>
+          </div>
+          <div class="schedule-item">
+              <div>
+                  <strong>Tire Rotation</strong>
+                  <p>Vehicle #024</p>
+              </div>
+              <div class="schedule-date">Dec 25, 2024</div>
+          </div>
+      </div>
+
+      <div class="card">
+          <div class="card-header">
+              <h3 class="card-title">🔧 System Diagnostics</h3>
+          </div>
+          <div class="diagnostic-panel">
+              <div class="diagnostic-item">
+                  <div class="diagnostic-icon">🔋</div>
+                  <div><strong>Battery</strong></div>
+                  <div style="color: #10b981;">Excellent</div>
+              </div>
+              <div class="diagnostic-item">
+                  <div class="diagnostic-icon">🛞</div>
+                  <div><strong>Tires</strong></div>
+                  <div style="color: #10b981;">Good</div>
+              </div>
+              <div class="diagnostic-item">
+                  <div class="diagnostic-icon">🔧</div>
+                  <div><strong>Engine</strong></div>
+                  <div style="color: #10b981;">Optimal</div>
+              </div>
+              <div class="diagnostic-item">
+                  <div class="diagnostic-icon">🛡️</div>
+                  <div><strong>Safety</strong></div>
+                  <div style="color: #f59e0b;">Check Required</div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- Chatbot Container -->
+  <div class="chatbot-container" id="chatbotContainer">
+      <div class="chatbot-header">
+          <div class="chatbot-title">🤖 Vehicle Assistant</div>
+          <button class="chatbot-close" onclick="toggleAI()">✕</button>
+      </div>
+      <div class="chatbot-messages" id="chatbotMessages">
+          <div class="message bot">
+              Hi! I'm your AI Vehicle Assistant. I can help you with information about your vehicle dashboard, diagnostics, maintenance scheduling, and system features. What would you like to know?
+          </div>
+      </div>
+      <div class="chatbot-input-container">
+          <div class="chatbot-input-wrapper">
+              <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Ask about your vehicles..." onkeypress="handleKeyPress(event)">
+              <button class="chatbot-send" id="chatbotSend" onclick="sendMessage()">
+                  ➤
+              </button>
+          </div>
+      </div>
+  </div>
+
+  <div class="floating-assistant" onclick="toggleAI()">🤖</div>
+  
+  <footer>
+    <p>&copy; 2024 Smart Vehicle Health Platform</p>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
